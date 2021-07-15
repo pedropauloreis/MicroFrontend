@@ -40,7 +40,7 @@ const mount = (el, {onNavigate, defaultHistory, initialPath}) => {
 //We want to immediately render our app into tha element
 if (process.env.NODE_ENV === 'development')
 {
-    const devRoot = document.querySelector('#_marketing-dev-root');
+    const devRoot = document.querySelector('#_auth-dev-root');
 
     //Assuming our container doesnt an element with id dev-products-dev-only
     if (devRoot)
