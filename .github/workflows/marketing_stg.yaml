@@ -1,4 +1,4 @@
-name: deploy-marketing
+name: deploy-marketing-stg
 
 on:
   pull_request:
