@@ -22,7 +22,7 @@ const prodConfig = {
           shared: packageJson.dependencies,
         }),
         new EnvironmentPlugin({
-          ENVIRONMENT: 'development'
+          ENVIRONMENT: 'production'
         })
   
     ],
