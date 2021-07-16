@@ -14,12 +14,38 @@ const generateClassName =  createGenerateClassName({
 export default () => {
 
    const [isSignedIn, setIsSignedIn] = useState(false);
+   let env = "";
+   let styleInn;
+
+   switch (process.env.ENVIRONMENT)
+   {
+      case 'development':
+         env = "DEVELOPMENT";
+         styleInn = {
+            color: "white",
+            backgroundColor: "DodgerBlue",
+            padding: "10px",
+            fontFamily: "Arial"
+         };
+         break;
+      
+      case 'stage':
+            env = "STAGE";
+            styleInn = {
+               color: "white",
+               backgroundColor: "Orange",
+               padding: "10px",
+               fontFamily: "Arial"
+            };
+            break;
+    }
 
    return(
       
       <BrowserRouter>
          <StylesProvider generateClassName={generateClassName}>
             <div>
+               <div style={styleInn} > {env} </div>
                <Header onSignOut={() => setIsSignedIn(false)} isSignedIn={isSignedIn}/>
                <Suspense fallback={<Progress />} >
                   <Switch>
