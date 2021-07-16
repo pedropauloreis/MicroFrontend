@@ -1,5 +1,6 @@
 const {merge} = require('webpack-merge');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const EnvironmentPlugin = require('webpack/lib/EnvironmentPlugin');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
@@ -20,6 +21,9 @@ const prodConfig = {
           },
           shared: packageJson.dependencies,
         }),
+        new EnvironmentPlugin({
+          ENVIRONMENT: 'production'
+        })
   
     ],
   };

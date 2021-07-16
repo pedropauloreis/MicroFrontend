@@ -38,6 +38,11 @@ export default () => {
                fontFamily: "Arial"
             };
             break;
+
+      case 'production':
+               env = "";
+               styleInn = { };
+               break;
     }
 
    return(
