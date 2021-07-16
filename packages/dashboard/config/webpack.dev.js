@@ -1,13 +1,11 @@
 const {merge} = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const EnvironmentPlugin = require('webpack/lib/EnvironmentPlugin');
-
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
-const port = 8080;
+const port = 8083;
 const localdomain = `http://localhost:${port}/`;
-const env = "DEV2"
 
 const devConfig = {
     mode: 'development',
@@ -19,22 +17,23 @@ const devConfig = {
       // historyApiFallback: {
       //     index: 'index.html'
       // }
-      historyApiFallback: true
+      historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     },
     plugins: [
-        new ModuleFederationPlugin({
-          name: 'container',
-          remotes: {
-            marketing: 'marketing@http://localhost:8081/remoteEntry.js',
-            auth: 'auth@http://localhost:8082/remoteEntry.js',
-            dashboard: 'dashboard@http://localhost:8083/remoteEntry.js',
-          },
-          shared: packageJson.dependencies,
+      new ModuleFederationPlugin({
+        name: 'dashboard',
+        filename: 'remoteEntry.js',
+        exposes: {
+          './DashboardApp': './src/bootstrap',
+        },
+        shared: packageJson.dependencies,
+      }),
+      new HtmlWebpackPlugin({
+          template: './public/index.html',
         }),
-        new EnvironmentPlugin({
-          ENVIRONMENT: 'development'
-        })
-  
     ],
   };
 
